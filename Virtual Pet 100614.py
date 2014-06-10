@@ -9,6 +9,7 @@ class Player:
         self.food = 5
 
     def items(self):
+        print()
         print("Items in possession:")
         print("Pet food: {0}".format(self.food))
         print()
@@ -25,7 +26,8 @@ class VirtualPet:
     #Methods
     def pet_status(self):
         #prints details on pet
-        print("Pet Stats")
+        print()
+        print("Pet Stats:")
         print("Pet name = {0}".format(self.name))
         print("Pet hunger = {0}".format(self.hunger))
         print()
@@ -45,7 +47,14 @@ class VirtualPet:
         if playerstats.food <= 0:
             print("You cannot feed {0},as you have no food.".format(self.name))
         if playerstats.food >0:
-            feed = input("Would you like to feed {0}[Y/N]? (amount of food = {1}) ".format(self.name,playerstats.food))
+            valid = False
+            while valid == False:
+                feed = input("Would you like to feed {0}[Y/N]? (amount of food = {1}) ".format(self.name,playerstats.food))
+                feed = feed[0].upper()
+                if feed == "Y" or feed == "N":
+                    valid = True
+                else:
+                    print("Please enter a valid choice.")
             if feed == "Y":
                 self.hunger = 100
                 playerstats.food = playerstats.food - 1
@@ -59,6 +68,7 @@ def display_menu():
     print("#####-MAIN MENU-#####")
     print("1.Make your pet speak")
     print("2.Check your pet's hunger status")
+    print("0.View stats")
     print()
 
 def main():
@@ -68,8 +78,6 @@ def main():
     pet_one = VirtualPet(name)
     choice = 0
 
-    pet_one.pet_status()
-    playerstats.items()
     while choice != ("q" or "Q"):
         display_menu()
         print()
@@ -77,8 +85,13 @@ def main():
         print()
         if choice == "1":
             pet_one.talk()
-        if choice == "2":
+        elif choice == "2":
             pet_one.hunger_status(playerstats)
+        elif choice == "0":
+            pet_one.pet_status()
+            playerstats.items()
+        elif choice == "q" or choice == "Q":
+            print()
         else:
             print("Please enter a valid choice from the menu")
             print()
