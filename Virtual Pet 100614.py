@@ -48,7 +48,7 @@ class VirtualPet:
             print("You cannot feed {0},as you have no food.".format(self.name))
         if playerstats.food >0:
             valid = False
-            while valid == False:
+            while not valid:
                 feed = input("Would you like to feed {0}[Y/N]? (amount of food = {1}) ".format(self.name,playerstats.food))
                 feed = feed[0].upper()
                 if feed == "Y" or feed == "N":
@@ -58,6 +58,7 @@ class VirtualPet:
             if feed == "Y":
                 self.hunger = 100
                 playerstats.food = playerstats.food - 1
+                print("{0}'s health is restored to 100.".format(self.name))
                 print("You have {0} pet food left.".format(playerstats.food))
             else:
                 print("You chose not to feed your pet.")
@@ -71,9 +72,21 @@ def display_menu():
     print("0.View stats")
     print()
 
+def pet_name():
+    #Asks the user to enter a valid name, and returns it.
+    valid = False
+    while not valid:
+        name = input("Please enter a name for your pet: ")
+        if name.isalpha() == True:
+            valid = True
+        else:
+            print("Please enter a valid name, that is at least 1 letter long.")
+            
+    return name
+    
 def main():
     playerstats = Player()
-    name = input("Please enter your new pet's name: ")
+    name = pet_name()
     #Creates an instance of the class
     pet_one = VirtualPet(name)
     choice = 0
