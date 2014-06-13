@@ -19,8 +19,20 @@ class VirtualPet:
     """A representation of a pet."""
     #Constructor - run automatically
     def __init__(self,name):
+        
+        #Basic stats
         self.name = name
         self.hunger = 100
+        self.level = 0
+        self.xp = 100
+        
+        #Combat stats
+        self.hp = 100
+        self.mp = 50
+        self.pattack = 1
+        self.mattack = 1
+        self.speed = 3
+        
         print("{0} rises from the ashes!".format(self.name))
 
     #Methods
@@ -31,6 +43,23 @@ class VirtualPet:
         print("Pet name = {0}".format(self.name))
         print("Pet hunger = {0}".format(self.hunger))
         print()
+
+    def level_up_options(self):
+        print("WORK IN PROGRESS")
+
+    def level_up(self):
+        self.level = self.level + 1
+        self.xp = 0
+        self.hp = self.hp + 25
+        self.mp = self.mp + 10
+        print("**********LEVEL UP**********")
+        print()
+        print("You have advanced to level {0}!".format(self.level))
+        print("{0}'s HP has increased from {1} to {2}!".format(self.name,self.hp-25,self.hp))
+        print("{0}'s MP has increased from {1} to {2}!".format(self.name,self.mp-10,self.mp))
+        print("Please choose which stat you wish to level from the list below.")
+        print()
+        self.level_up_options()
         
     
     def talk(self):
@@ -62,6 +91,7 @@ class VirtualPet:
                 print("You have {0} pet food left.".format(playerstats.food))
             else:
                 print("You chose not to feed your pet.")
+        
 
 
 def display_menu():
@@ -92,6 +122,8 @@ def main():
     choice = 0
 
     while choice != ("q" or "Q"):
+        if pet_one.xp == 100:
+            pet_one.level_up()
         display_menu()
         print()
         choice = input("Please make your choice (or enter q to quit): ")
